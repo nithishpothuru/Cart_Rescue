@@ -133,6 +133,12 @@ Scikit-learn
 Pandas
 NumPy
 
+## Datasets:
+Kaggle E-commerce Clickstream and Transaction Dataset
+Kaggle E-commerce Transactions + Clickstream
+Kaggle Ecommerce Clickstream Dataset
+Kaggle e-Shop Clickstream Dataset
+
 ---
 
 # Project Structure
