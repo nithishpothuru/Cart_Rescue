@@ -141,23 +141,23 @@ Cart_Rescue/
 │
 ├── backend/
 │   ├── routes/
-│   │   ├── admin_routes.py         
-│   │   ├── auth_routes.py           
-│   │   ├── event_routes.py          
-│   │   ├── product_routes.py        
-│   │   └── session_routes.py        
+│   │   ├── admin_routes.py
+│   │   ├── auth_routes.py
+│   │   ├── event_routes.py
+│   │   ├── product_routes.py
+│   │   └── session_routes.py
 │   │
-│   ├── app.py                      
-│   ├── config.py                    
-│   ├── database.py                  
-│   ├── decision_service.py         
-│   ├── session_manager.py           
-│   ├── twilio_service.py            
-│   ├── create_admin.py              
-│   ├── fix_admin.py                 
-│   ├── test_api.py                 
+│   ├── app.py
+│   ├── config.py
+│   ├── database.py
+│   ├── decision_service.py
+│   ├── session_manager.py
+│   ├── twilio_service.py
+│   ├── create_admin.py
+│   ├── fix_admin.py
+│   ├── test_api.py
 │   ├── requirements.txt
-│   └── .env                       
+│   └── .env
 │
 ├── frontend/
 │   ├── public/
@@ -166,7 +166,7 @@ Cart_Rescue/
 │   │   ├── assets/
 │   │   │
 │   │   ├── components/
-│   │   │   ├── AddToCartButton.jsx  
+│   │   │   ├── AddToCartButton.jsx
 │   │   │   ├── Categories.jsx
 │   │   │   ├── FeaturedProducts.jsx
 │   │   │   ├── Footer.jsx
@@ -176,7 +176,7 @@ Cart_Rescue/
 │   │   │   └── Testimonials.jsx
 │   │   │
 │   │   ├── context/
-│   │   │   └── SessionContext.jsx  
+│   │   │   └── SessionContext.jsx
 │   │   │
 │   │   ├── pages/
 │   │   │   ├── admin/
@@ -184,12 +184,12 @@ Cart_Rescue/
 │   │   │   │   ├── AdminDashboard.jsx
 │   │   │   │   ├── LiveSessions.jsx
 │   │   │   │   ├── HighRiskSessions.jsx
-│   │   │   │   ├── SessionDetail.jsx     
+│   │   │   │   ├── SessionDetail.jsx
 │   │   │   │   ├── ActionHistory.jsx
 │   │   │   │   ├── Analytics.jsx
 │   │   │   │   └── Admin.css
 │   │   │   │
-│   │   │   ├── Cart.jsx             
+│   │   │   ├── Cart.jsx
 │   │   │   ├── Home.jsx
 │   │   │   ├── Login.jsx
 │   │   │   ├── Register.jsx
@@ -197,7 +197,7 @@ Cart_Rescue/
 │   │   │   ├── Auth.css
 │   │   │   └── Cart.css
 │   │   │
-│   │   ├── App.jsx                
+│   │   ├── App.jsx
 │   │   ├── App.css
 │   │   ├── index.css
 │   │   └── main.jsx
@@ -207,15 +207,15 @@ Cart_Rescue/
 │   └── vite.config.js
 │
 ├── ml/
-│   ├── datasets/                  
+│   ├── datasets/
 │   ├── realtime/
-│   │   ├── realtime_features.py    
-│   │   ├── risk_scorer.py           
-│   │   ├── scenario_detector.py    
-│   │   └── action_engine.py         
+│   │   ├── realtime_features.py
+│   │   ├── risk_scorer.py
+│   │   ├── scenario_detector.py
+│   │   └── action_engine.py
 │   │
 │   ├── saved_models/
-│   │   └── xgboost.pkl              
+│   │   └── xgboost.pkl
 │   │
 │   ├── feature_engineering.py
 │   ├── preprocessing.py
@@ -232,14 +232,15 @@ Cart_Rescue/
 ## User Roles
 
 
-Role                       Access
-Customer                   Home, Shop, Cart, Checkout, Payment, Login, RegisterSuper AdminFull Admin Dashboard + ability to visit Shop
-Super Admin                Credentials
+- Role        ----     Access
+- Customer    ----     Home, Shop, Cart, Checkout, Payment, Login, RegisterSuper AdminFull Admin Dashboard + ability to visit Shop
+- Super Admin ----     Credentials
 
 
 ## Default Super Admin Credentials
-textEmail   : admin@cartrescue.ai
-Password: Admin@123
+
+- textEmail: admin@cartrescue.ai
+- Password: Admin@123
 
 
 ---
@@ -306,18 +307,17 @@ Possible recommendations include:
 - Offer Discount Coupon
 - Offer Free Shipping
 - Customer Support Assistance
+- NO_ACTION
+- SEND_CART_REMINDER
+- SHOW_EXIT_INTENT_POPUP
+- SHOW_LIMITED_TIME_DISCOUNT
+- OFFER_FREE_SHIPPING
+- OFFER_COD_OR_ALTERNATE_PAYMENT
+- SHOW_TRUST_BADGES_AND_REVIEWS
+- SHOW_PERSONALIZED_RECOMMENDATION
 
-NO_ACTION
-SEND_CART_REMINDER
-SHOW_EXIT_INTENT_POPUP
-SHOW_LIMITED_TIME_DISCOUNT
-OFFER_FREE_SHIPPING
-OFFER_COD_OR_ALTERNATE_PAYMENT
-SHOW_TRUST_BADGES_AND_REVIEWS
-SHOW_PERSONALIZED_RECOMMENDATION
-
-When Super Admin Accepts an action, the system can trigger:
-Twilio SMS
+- When Super Admin Accepts an action, the system can trigger:
+- Twilio SMS
 
 ---
 
