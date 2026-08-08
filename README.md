@@ -102,6 +102,8 @@ Twilio SMS / Call
      ▼
 Dashboard + Action History Updated
 ```
+# Sequence Diagram
+<img width="1236" height="1600" alt="WhatsApp Image 2026-08-07 at 11 18 49 PM" src="https://github.com/user-attachments/assets/63be7136-9cfa-4969-b31c-8a694b878444" />
 
 ---
 
