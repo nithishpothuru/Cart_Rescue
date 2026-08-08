@@ -3,63 +3,56 @@ import {
     Shirt,
     ShoppingBag,
     House,
-    Trophy
+    Trophy,
 } from "lucide-react";
 
 const categories = [
     {
         name: "Electronics",
-        icon: Laptop
+        icon: Laptop,
     },
     {
         name: "Fashion",
-        icon: Shirt
+        icon: Shirt,
     },
     {
         name: "Groceries",
-        icon: ShoppingBag
+        icon: ShoppingBag,
     },
     {
         name: "Home",
-        icon: House
+        icon: House,
     },
     {
         name: "Sports",
-        icon: Trophy
-    }
+        icon: Trophy,
+    },
 ];
 
 function Categories() {
     return (
-        <section className="categories-section" id="categories">
+        <section className="categories-section">
+            <div className="container">
+                <div className="section-heading">
+                    <h2>Popular Categories</h2>
+                </div>
 
-            <div className="section-container">
-
-                <h2>Popular Categories</h2>
-
-                <div className="category-grid">
-
+                <div className="categories-grid">
                     {categories.map((category) => {
-
                         const Icon = category.icon;
 
                         return (
                             <div className="category-card" key={category.name}>
-
                                 <div className="category-icon">
-                                    <Icon size={25} />
+                                    <Icon size={24} strokeWidth={1.8} />
                                 </div>
 
                                 <span>{category.name}</span>
-
                             </div>
                         );
                     })}
-
                 </div>
-
             </div>
-
         </section>
     );
 }
