@@ -14,78 +14,93 @@ Cart abandonment is a common challenge faced by e-commerce platforms. Customers 
 
 Cart Rescue continuously monitors customer sessions, analyzes behavioral patterns using machine learning, predicts abandonment risk, and recommends the most suitable action instead of applying the same strategy to every customer.
 
+The platform supports two user roles:
+- **Customer** – Shop, add to cart, checkout, and make payments
+- **Super Admin** – Monitor live sessions, review high-risk sessions, accept/ignore AI recommendations, and trigger recovery actions via SMS/Call
+
 ---
 
 # Features
 
 ## Customer Portal
-
-- Customer Login
-- Home Page
-- Product Listing
-- Product Details
-- Shopping Cart
-- Checkout
-- Payment Processing
+- Customer Registration & Login
+- Home Page with Featured Products
+- Product Listing (Shop Page)
+- Flash Sale & AI Personalized Recommendations
+- Add to Cart with Quantity Selector
+- Shopping Cart (Increase / Decrease quantity)
+- Checkout & Payment Processing
+- Real-time Session & Event Tracking
 
 ## AI Prediction Engine
-
 - Real-Time Session Monitoring
-- Customer Behavior Analysis
-- Feature Extraction
-- Abandonment Risk Prediction
-- Risk Score Generation
-- Risk Explanation
-- Intelligent Decision Recommendation
+- Customer Behavior Event Tracking
+- Feature Extraction from session events
+- Abandonment Risk Prediction (XGBoost)
+- Risk Score & Risk Level Generation
+- Scenario Detection (Payment Failure, Checkout Hesitation, Price Sensitivity, etc.)
+- Intelligent Action Recommendation
 
-## Admin Dashboard
-
-- Dashboard Overview
-- Live Customer Sessions
+## Super Admin Dashboard
+- Dashboard Overview (Live Sessions, High Risk, Total Sessions, Customers)
+- Live Customer Sessions (Active / Inactive status)
 - High Risk Sessions
-- Session Details
+- Session Details with AI Recommendation
+- Accept / Ignore recommended action
 - Action History
-- Analytics
+- Analytics (Risk Breakdown, Scenario Distribution, Action Stats)
+- Trigger recovery via **Twilio SMS / Phone Call**
 
 ---
 
 # System Workflow
 
 ```text
-Customer Login
-      │
-      ▼
-Browse Products
-      │
-      ▼
-View Product
-      │
-      ▼
-Add to Cart
-      │
-      ▼
-Checkout
-      │
-      ▼
-Payment Attempt
-      │
-      ▼
-Store Session Events
-      │
-      ▼
-Machine Learning Prediction
-      │
-      ▼
-Risk Score
-      │
-      ▼
-Decision Agent
-      │
-      ▼
-Recommended Action
-      │
-      ▼
-Dashboard Update
+Customer Login / Guest Session
+            │
+            ▼
+      Browse Products
+            │
+            ▼
+       View Product
+            │
+            ▼
+       Add to Cart
+            │
+            ▼
+        Checkout
+            │
+            ▼
+     Payment Attempt
+            │
+            ▼
+  Store Session Events (MongoDB)
+            │
+            ▼
+ Machine Learning Prediction
+   (Features → Risk → Scenario)
+            │
+            ▼
+      Risk Score + Scenario
+            │
+            ▼
+     Decision Agent
+            │
+            ▼
+  Recommended Action
+            │
+            ▼
+ Super Admin Reviews Session
+            │
+     ┌──────┴──────┐
+     ▼             ▼
+  Accept         Ignore
+     │
+     ▼
+Twilio SMS / Call
+     │
+     ▼
+Dashboard + Action History Updated
 ```
 
 ---
@@ -94,150 +109,190 @@ Dashboard Update
 
 ## Frontend
 
-- React.js
-- Tailwind CSS
-- Axios
-- React Router
+React.js (Vite)
+React Router
+Axios
+Lucide React (Icons)
+Custom CSS
 
 ## Backend
 
-- Python
-- Flask
-- REST APIs
+Python
+Flask
+Flask-CORS
+REST APIs
 
 ## Database
 
-- MongoDB
+MongoDB Atlas
 
 ## Machine Learning
 
-- XGBoost
-- Scikit-learn
-- Pandas
-- NumPy
-
-## Notifications
-
-- Twilio
-- WhatsApp API
-- SMS API
+XGBoost
+Scikit-learn
+Pandas
+NumPy
 
 ---
 
 # Project Structure
 
-```text
-Cart-Rescue/
+Cart_Rescue/
+│
+├── backend/
+│   ├── routes/
+│   │   ├── admin_routes.py         
+│   │   ├── auth_routes.py           
+│   │   ├── event_routes.py          
+│   │   ├── product_routes.py        
+│   │   └── session_routes.py        
+│   │
+│   ├── app.py                      
+│   ├── config.py                    
+│   ├── database.py                  
+│   ├── decision_service.py         
+│   ├── session_manager.py           
+│   ├── twilio_service.py            
+│   ├── create_admin.py              
+│   ├── fix_admin.py                 
+│   ├── test_api.py                 
+│   ├── requirements.txt
+│   └── .env                       
 │
 ├── frontend/
-│   │
 │   ├── public/
 │   │
 │   ├── src/
-│   │   │
 │   │   ├── assets/
+│   │   │
 │   │   ├── components/
+│   │   │   ├── AddToCartButton.jsx  
+│   │   │   ├── Categories.jsx
+│   │   │   ├── FeaturedProducts.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── Hero.jsx
 │   │   │   ├── Navbar.jsx
-│   │   │   ├── Sidebar.jsx
-│   │   │   ├── ProductCard.jsx
-│   │   │   ├── ProductGrid.jsx
-│   │   │   ├── CartItem.jsx
-│   │   │   ├── SessionCard.jsx
-│   │   │   ├── SessionTable.jsx
-│   │   │   ├── RiskBadge.jsx
-│   │   │   ├── RiskScore.jsx
-│   │   │   ├── RiskExplanation.jsx
-│   │   │   ├── RecommendedAction.jsx
-│   │   │   ├── MetricCard.jsx
-│   │   │   └── Loading.jsx
+│   │   │   ├── Newsletter.jsx
+│   │   │   └── Testimonials.jsx
+│   │   │
+│   │   ├── context/
+│   │   │   └── SessionContext.jsx  
 │   │   │
 │   │   ├── pages/
+│   │   │   ├── admin/
+│   │   │   │   ├── AdminLayout.jsx
+│   │   │   │   ├── AdminDashboard.jsx
+│   │   │   │   ├── LiveSessions.jsx
+│   │   │   │   ├── HighRiskSessions.jsx
+│   │   │   │   ├── SessionDetail.jsx     
+│   │   │   │   ├── ActionHistory.jsx
+│   │   │   │   ├── Analytics.jsx
+│   │   │   │   └── Admin.css
+│   │   │   │
+│   │   │   ├── Cart.jsx             
+│   │   │   ├── Home.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Register.jsx
+│   │   │   ├── Shop.jsx
+│   │   │   ├── Auth.css
+│   │   │   └── Cart.css
 │   │   │
-│   │   │── customer/
-│   │   │     ├── Login.jsx
-│   │   │     ├── Home.jsx
-│   │   │     ├── ProductListing.jsx
-│   │   │     ├── ProductDetails.jsx
-│   │   │     ├── Cart.jsx
-│   │   │     └── Checkout.jsx
-│   │   │
-│   │   └── dashboard/
-│   │         ├── Dashboard.jsx
-│   │         ├── LiveSessions.jsx
-│   │         ├── SessionDetails.jsx
-│   │         ├── HighRiskSessions.jsx
-│   │         ├── ActionHistory.jsx
-│   │         └── Analytics.jsx
+│   │   ├── App.jsx                
+│   │   ├── App.css
+│   │   ├── index.css
+│   │   └── main.jsx
 │   │
-│   ├── App.jsx
-│   ├── main.jsx
-│   ├── index.css
+│   ├── index.html
 │   ├── package.json
-│   ├── tailwind.config.js
-│   ├── postcss.config.js
 │   └── vite.config.js
 │
-├── backend/
-│   │
-│   ├── app.py
-│   ├── database.py
-│   ├── ml_model.py
-│   ├── policy.py
-│   ├── twilio_config.py
-│   ├── requirements.txt
-│   └── uploads/
-│
 ├── ml/
+│   ├── datasets/                  
+│   ├── realtime/
+│   │   ├── realtime_features.py    
+│   │   ├── risk_scorer.py           
+│   │   ├── scenario_detector.py    
+│   │   └── action_engine.py         
 │   │
-│   ├── datasets/
-│   │   ├── waqi/
-│   │   ├── wafaa/
-│   │   ├── yashwant/
-│   │   └── arashnic/
+│   ├── saved_models/
+│   │   └── xgboost.pkl              
 │   │
-│   ├── preprocessing.py
 │   ├── feature_engineering.py
-│   │
-│   ├── logistic_regression.py
-│   ├── random_forest.py
+│   ├── preprocessing.py
 │   ├── xgboost_model.py
-│   │
-│   ├── compare_models.py
-│   ├── explain_model.py
-│   │
-│   ├── final_training_dataset.csv
-│   │
-│   └── saved_models/
-│       ├── logistic_regression.pkl
-│       ├── random_forest.pkl
-│       ├── xgboost.pkl
-│       └── scaler.pkl
+│   └── ...
 │
-├── README.md
-```
+├── .gitignore
+└── README.md
+
+---
+
+---
+
+## User Roles
+
+
+Role                       Access
+Customer                   Home, Shop, Cart, Checkout, Payment, Login, RegisterSuper AdminFull Admin Dashboard + ability to visit Shop
+Super Admin                Credentials
+
+
+## Default Super Admin Credentials
+textEmail   : admin@cartrescue.ai
+Password: Admin@123
+
 
 ---
 
 # Machine Learning
 
-The prediction engine uses an **XGBoost Classifier** trained on customer session data.
+## Pipeline
+
+Session Events
+      ↓
+Feature Generation
+      ↓
+XGBoost Risk Scorer
+      ↓
+Scenario Detector
+      ↓
+Action Engine
+      ↓
+Final Decision (Risk + Scenario + Recommended Action)
+
 
 ### Features Used
 
-- Pages Visited
-- Time on Site
+- Number of Events
+- Product Views
+- Add to Cart Count
+- Checkout Started
+- Payment Attempts / Failures
 - Cart Value
-- Product Count
-- Checkout Attempts
-- Payment Attempts
-- Payment Failures
-- Purchase History
+- Average & Max Price
 
 ### Prediction Output
 
 - Risk Score
 - Predicted Reason
 - Recommended Action
+
+### Risk Levels
+
+- HIGH
+- MEDIUM
+- LOW
+
+### Detected Scenarios
+
+- Payment Failure
+- Checkout Hesitation
+- Price Sensitivity
+- Shipping Friction
+- Form Friction
+- Cart Abandonment Risk
+- Browsing
+
 
 ---
 
@@ -251,6 +306,18 @@ Possible recommendations include:
 - Offer Discount Coupon
 - Offer Free Shipping
 - Customer Support Assistance
+
+NO_ACTION
+SEND_CART_REMINDER
+SHOW_EXIT_INTENT_POPUP
+SHOW_LIMITED_TIME_DISCOUNT
+OFFER_FREE_SHIPPING
+OFFER_COD_OR_ALTERNATE_PAYMENT
+SHOW_TRUST_BADGES_AND_REVIEWS
+SHOW_PERSONALIZED_RECOMMENDATION
+
+When Super Admin Accepts an action, the system can trigger:
+Twilio SMS
 
 ---
 
